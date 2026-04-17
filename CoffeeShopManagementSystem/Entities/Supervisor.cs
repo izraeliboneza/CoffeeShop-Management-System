@@ -2,24 +2,23 @@ using System.Reflection.Metadata;
 
 namespace CoffeeShopManagementSystem.Entities
 {
-    // Supervisor arver fra Employee.
-    // REpresenterer supervisor ansatt.
+    //Supervisor employee inherits Id, Name and ToString() from Employee.
     public class Supervisor : Employee
     {
-        // returnerer rolle-navnet.
+        //Return the role sown in the menu + header.
         public override string Role => "Supervisor";
 
-        // Oppretter en ny supervisor med ID og navn.
+        //Creates a new Supervisor with ID and name.
         public Supervisor(string id, string name) : base(id, name) { }
 
-        // Supervisor skal vise kun ID or rolle.
+        //Supervisor shows ID and role in the header.
         public override void DisplayInfo()
         {
             Console.WriteLine($"Logged in as: {Role}");
         }
 
-        // Supervisor skal ha tilgang til alle menyene.
-        // new order, order history, sales overviewe, coffee menu, switch UserStringHandle og exit.
+        //Supervisor has accsess to all menu options:
+        //NEw Order, Order History, Sales Overview, Coffee Menu, Switch USer and Exit.
         public override List<int> GetMenuOptions()
         {
             return new List<int>{1, 2, 3, 4, 5, 6};
