@@ -1,39 +1,28 @@
 namespace CoffeeShopManagementSystem.Entities
 {
-    // Baseklasse for alle ansatte i systemet.
-    // Barista og Supervisor arver fra denne klasse.
+    // Base class for all employees in the system.
     public abstract class Employee
     {
-        // Ansatt-IDictionary<, for eks. "B001" eller "S001".
+        // Employee ID, for example "B001" or "S001".
         public string Id { get; protected set; }
-        
-        // Fult navn på ansatte.
+
+        // Full name of the employee.
         public string Name { get; protected set; }
-        
-        // Rolle-navnet.
-        // Barista og Supervisor klassene bestemmer hva dette blir.
-        public abstract string Role { get; }
-        
+
+        // This runs when a Barista or Supervisor object is created.
         protected Employee(string id, string name)
         {
             Id = id;
             Name = name;
         }
-        
-        // Viser ansatt info i hovedmenyen.
-        public abstract void DisplayInfo();
-        
-        // Viser menyvalgene den ansatte har tilgang til.
-        // Sub klassene kan både vise sin egen definert info eller ikke.
-        public virtual List<int> GetMenuOptions()
-        {
-            return new List<int> { 0, 1 };
-        }
 
-        // DEtte returnerer kort info om Id og rolle.
+        // Returns the role name of the employee.
+        public abstract string GetRoleName();
+
+        // Returns a short description of the employee.
         public override string ToString()
         {
-            return $"Id: {Id}, Role: {Role}";
+            return $"Id: {Id}, Role: {GetRoleName()}";
         }
     }
 }
