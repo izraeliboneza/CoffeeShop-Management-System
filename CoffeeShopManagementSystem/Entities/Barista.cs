@@ -1,30 +1,17 @@
-using System.ComponentModel.Design;
-
 namespace CoffeeShopManagementSystem.Entities
 {
-    // klassen representerer en ansatt type: Barista.
-    // Arver fra Employee-klassen.
+    // Barista employee inherits from the abstract Employee class.
     public class Barista : Employee
     {
-        // Returnerer rolle-navnet som vises i menyen.
-        public override string Role => "Barista";
-        
-        // Oppretter ny barista med id og navn.
-        // Kaller konstruktøren via "base".
-        public Barista(string id, string name) : base(id, name) {}
-        
-        // Viser ansatt info i headeren.
-        public override void DisplayInfo()
+        // Creates a new Barista with ID and name.
+        public Barista(string id, string name) : base(id, name)
         {
-            Console.WriteLine($"Logged in as: {Role}");
-            Console.WriteLine($"Name: {Name}");
         }
 
-        // Barista skal kun ha tilgang til : New order, Coffee MenuCommand, switch user og exit.
-        public override List<int> GetMenuOptions()
+        // Returns the role name shown in the menu and header.
+        public override string GetRoleName()
         {
-            return new List<int> { 0, 1, 2, 3, 4 };
+            return "Barista";
         }
     }
 }
-
