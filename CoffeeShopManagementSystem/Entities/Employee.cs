@@ -1,48 +1,35 @@
 namespace CoffeeShopManagementSystem.Entities
 {
-    // Base class for all employees in the system.
+    // Base class for all employee in the system.
+    //Bariste and Supervisor.
     public abstract class Employee
     {
-        private string _id;
-        private string _name;
-
-        // Employee ID, for example "B001" or "S001".
-        public string Id
-        {
-            get => _id;
-            protected set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Employee ID cannot be empty.");
-
-                _id = value;
-            }
-        }
-
+        //Employee ID, for example "B001" or "S001".
+        public string Id { get; protected set; }
+        
         // Full name of the employee.
-        public string Name
-        {
-            get => _name;
-            protected set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Name cannot be empty.");
-
-                _name = value;
-            }
-        }
-
+        public string Name { get; protected set; }
+        
+        // Role name - each subclasses decides what this returns.
+        public abstract string Role { get; }
+        
         // This runs when a Barista or Supervisor object is created.
         protected Employee(string id, string name)
         {
             Id = id;
             Name = name;
         }
+        
+        //Displays info in the main menu header.
+        public abstract void DisplayInfo();
+        
+        // Returns whcich menu options this employee has access to.
+        public virtual List<int> GetMenuOptions()
+        {
+            return new List<int> { 0, 1 };
+        }
 
-        // Returns the role name of the employee.
-        public abstract string GetRoleName();
-
-        // Returns a short description of the employee.
+        //Returns a short string like "B001 - Barista".
         public override string ToString()
         {
             return $"Id: {Id}, Role: {GetRoleName()}";
