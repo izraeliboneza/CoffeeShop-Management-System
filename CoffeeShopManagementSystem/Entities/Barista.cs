@@ -1,5 +1,3 @@
-using System.ComponentModel.Design;
-
 namespace CoffeeShopManagementSystem.Entities
 {
     //Barista employee inherits from abstract Employee class.
@@ -16,15 +14,12 @@ namespace CoffeeShopManagementSystem.Entities
         //Barista also shows name.
         public override void DisplayInfo()
         {
-            Console.WriteLine($"Logged in as: {Role}");
-            Console.WriteLine($"Name: {Name}");
         }
 
         //Barista only has access to: New Order, Coffee Menu, Switch User and Exit.
         public override List<int> GetMenuOptions()
         {
-            return new List<int> { 0, 1, 2, 3, 4 };
+            return "Barista";
         }
     }
 }
-

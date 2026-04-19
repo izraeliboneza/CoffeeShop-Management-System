@@ -32,7 +32,7 @@ namespace CoffeeShopManagementSystem.Entities
         //Returns a short string like "B001 - Barista".
         public override string ToString()
         {
-            return $"Id: {Id}, Role: {Role}";
+            return $"Id: {Id}, Role: {GetRoleName()}";
         }
     }
 }
