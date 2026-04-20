@@ -1,44 +1,28 @@
 namespace CoffeeShopManagementSystem.Entities
 {
-    // Base class for all employee in the system.
-    //Bariste and Supervisor.
+    // Base class for all employees in the system.
     public abstract class Employee
     {
-        //Employee ID, for example "B001" or "S001".
+        // Employee ID, for example "B001" or "S001".
         public string Id { get; protected set; }
-        
+
         // Full name of the employee.
         public string Name { get; protected set; }
-        
-        // Role name - each subclasses decides what this returns.
-        public abstract string Role { get; }
-        
+
         // This runs when a Barista or Supervisor object is created.
         protected Employee(string id, string name)
         {
             Id = id;
             Name = name;
         }
-        
-        //Displays info in the main menu header.
-        public abstract void DisplayInfo();
-        
-        // Returns whcich menu options this employee has access to.
-        public virtual List<int> GetMenuOptions()
-        {
-            return new List<int> { 0, 1 };
-        }
-        
-        // Returns the role name – used in the menu header
-        public string GetRoleName()
-        {
-            return Role;
-        }
 
-        //Returns a short string like "B001 - Barista".
+        // Returns the role name of the employee.
+        public abstract string GetRoleName();
+
+        // Returns a short description of the employee.
         public override string ToString()
         {
-            return $"Id: {Id}, Role: {Role}";
+            return $"Id: {Id}, Role: {GetRoleName()}";
         }
     }
 }
