@@ -52,6 +52,7 @@ namespace CoffeeShopManagementSystem.Utils
             {
                 string input = Console.ReadLine()?.Trim() ?? string.Empty;
 
+                // Check for empty input
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     PrintError("Please enter a positive number.");
@@ -59,6 +60,7 @@ namespace CoffeeShopManagementSystem.Utils
                     continue;
                 }
 
+                // Check if input is a valid integer
                 if (!int.TryParse(input, out int value))
                 {
                     PrintError("Invalid input. Please enter a positive number.");
@@ -66,6 +68,7 @@ namespace CoffeeShopManagementSystem.Utils
                     continue;
                 }
 
+                // Check that number is greater than 0
                 if (value <= 0)
                 {
                     PrintError("Number must be greater than 0.");
@@ -84,6 +87,7 @@ namespace CoffeeShopManagementSystem.Utils
             {
                 string input = Console.ReadLine()?.Trim() ?? string.Empty;
 
+                // Check for empty input
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     PrintError("Please enter a date in format dd.MM.yyyy.");
@@ -91,6 +95,7 @@ namespace CoffeeShopManagementSystem.Utils
                     continue;
                 }
 
+                // Check if input matches the required date format
                 if (!DateTime.TryParseExact(
                         input,
                         "dd.MM.yyyy",
