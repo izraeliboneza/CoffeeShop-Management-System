@@ -28,6 +28,12 @@ namespace CoffeeShopManagementSystem.Entities
         {
             return new List<int> { 0, 1 };
         }
+        
+        // Returns the role name – used in the menu header
+        public string GetRoleName()
+        {
+            return Role;
+        }
 
         //Returns a short string like "B001 - Barista".
         public override string ToString()
