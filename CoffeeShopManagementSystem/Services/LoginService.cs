@@ -16,7 +16,7 @@ public class LoginService
     
     //This method tries to find and employee with the given ID.
     //Returns the employee or null if not found.
-    public Employee? Login(string employeeId)
+    public Employee? LogIn(string employeeId)
     {
         return _employeeService.GetEmployee(employeeId);
     }

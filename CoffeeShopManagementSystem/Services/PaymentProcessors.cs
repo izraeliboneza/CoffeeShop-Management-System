@@ -5,7 +5,7 @@ namespace CoffeeShopManagementSystem.Services;
 //This class handles paymentmethods.
 
 //Handles cashpayments.
-public class CashPaymentProcessors : IpaymentProcessor
+public class CashPaymentProcessor : IPaymentProcessor
 {
     public string PaymentMethod => "Cash";
 
@@ -28,7 +28,7 @@ public class CardPaymentProcessor : IPaymentProcessor
     }
 }
 
-// Handles Vipps payment.
+// Handles card payment.
 public class VippsPaymentProcessor : IPaymentProcessor
 {
     public string PaymentMethod => "Vipps";

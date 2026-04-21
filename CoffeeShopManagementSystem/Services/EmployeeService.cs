@@ -16,14 +16,14 @@ public class EmployeeService
         {
             {"B001", new Barista("B001", "Per Pettersen")},
             {"B002", new  Barista("B002", "Kari Bremnes")},
-            {"S001", new Barista("S001", "Petrus Kowalski")},
+            {"S001", new Supervisor("S001", "Petrus Kowalski")},
         };
     }
     
     //Returns the employee with the given ID and null if not found.
-    public Employee? GetEmployee(string employeeid)
+    public Employee? GetEmployee(string employeeId)
     {
-        _employees.TryGetValue(employeeid, out Employee? employee);
+        _employees.TryGetValue(employeeId, out Employee? employee);
         return employee;
     }
     
