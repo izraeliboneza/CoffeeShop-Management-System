@@ -15,7 +15,7 @@ public class OrderService
     private Order? _currentOrder;
     
     //IFileService is used so OrderService can save and load orders.
-    public OrderService(JsonFileService fileService)
+    public OrderService(IFileService fileService)
     {
         _fileService = fileService;
     }
@@ -75,7 +75,7 @@ public class OrderService
         _currentOrder.PaymentMethod = processor.PaymentMethod;
         _currentOrder.IsCompleted = true;
 
-        _fileService.SaveOrder(_currentOrder);
+        _fileService.Save(_currentOrder);
 
         // Clear the active order
         _currentOrder = null;
