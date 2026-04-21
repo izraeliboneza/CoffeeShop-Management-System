@@ -1,7 +1,6 @@
 using System.Text.Json;
 using CoffeeShopManagementSystem.Entities;
 using CoffeeShopManagementSystem.Interfaces;
-using CoffeeShopManagementSystem.Services;
 
 namespace CoffeeShopManagementSystem.Services;
 
@@ -12,7 +11,7 @@ public class JsonFileService : IFileService
     //this is where all the orders will be stored.
     private readonly string _filePath;
 
-    public JsonFileService(string filePath = "Orders.json")
+    public JsonFileService(string filePath = "Data/orders.json")
     {
         _filePath = filePath;
     }
@@ -21,10 +20,10 @@ public class JsonFileService : IFileService
     //adding the new one, and writing everything back to the file.
     public void Save(Order order)
     {
-        List<Order> Orders = LoadOrders();
-        Orders.Add(order);
+        List<Order> orders = LoadOrders();
+        orders.Add(order);
         string json = JsonSerializer.Serialize(
-            Orders, new JsonSerializerOptions{WriteIndented = true});
+            orders, new JsonSerializerOptions{WriteIndented = true});
         File.WriteAllText(_filePath, json);
     }
 
