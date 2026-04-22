@@ -2,18 +2,15 @@ using CoffeeShopManagementSystem.Entities;
 
 namespace CoffeeShopManagementSystem.Interfaces;
 
-
-// This interface defines what a file service must be able to do.
-//JsonFileService implements this interface and handles the actual saving and loading.
-//Because OrderService uses IfileService and not JsonFileService directly,
-//you could replace JSON storage with a database later without having to
-//change anything in OrderService.
+// Defines what a file service must support.
+// JsonFileService implements this interface and handles actual persistence.
+// This allows OrderService to remain independent of storage type.
 public interface IFileService
 {
-    // Saves completed order to the backing store.
-    public void Save(Order order);
+    // Saves a completed order to storage.
+    void Save(Order order);
 
-    //Loads the saved orders from the backing store. 
-    //Return an empty list if there is no orders saved.
-    public List<Order> LoadOrders();
+    // Loads all saved orders.
+    // Returns an empty list if no orders are stored.
+    List<Order> LoadOrders();
 }

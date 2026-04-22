@@ -1,18 +1,14 @@
-using CoffeeShopManagementSystem.Entities;
-
 namespace CoffeeShopManagementSystem.Interfaces;
 
-// This interface defines what a payemnt processor must do.
-//CashPaymentProcessor, VippsPaymentProcessor and CardPaymentProcessor all implement it.
-//Because OrderService uses IPaymentProcessor and not the processors directly, its possible to
-// add a new method later, for example MobilePay (that some regions in the world uses), 
-//without having to change anything in Orderservice.
+// Defines what a payment processor must support.
+// Implemented by Cash, Card, and Vipps payment processors.
+// This allows OrderService to remain independent of specific payment types.
 public interface IPaymentProcessor
 {
-    //Name of the payment method used is stored on the Order after a successful payemnt.
+    // Name of the payment method used for the order.
     string PaymentMethod { get; }
-    
-    // Trys to process a payment for the given amount in NOK.
-    // Return true if the payment succeeds and false if it fails.
-    public bool ProcessPayment(decimal amount);
+
+    // Attempts to process payment for the given amount.
+    // Returns true if the payment succeeds, otherwise false.
+    bool ProcessPayment(decimal amount);
 }
