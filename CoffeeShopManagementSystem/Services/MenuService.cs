@@ -22,7 +22,6 @@ public class MenuService
         new Coffee(6, "Traktekaffe / Svart kaffe",  42m),
     };
 
-    // JsonFileService is created here and passed into OrderService.
     public MenuService()
     {
         JsonFileService fileService = new JsonFileService();
@@ -30,14 +29,14 @@ public class MenuService
         _reportService = new ReportService(_orderService);
     }
 
-    // Shows the coffee menu with prices – used by both Barista and Supervisor
     public void ShowCoffeeMenu(Employee employee)
     {
         Console.Clear();
-        Console.WriteLine("=");
-        Console.WriteLine("COFFEE SHOP MANAGEMENT SYSTEM");
-        Console.WriteLine("=");
+        Console.WriteLine("========================================");
+        Console.WriteLine("      COFFEE SHOP MANAGEMENT SYSTEM");
+        Console.WriteLine("========================================");
         Console.WriteLine("Coffee Menu");
+        Console.WriteLine("----------------------------------------");
 
         foreach (Coffee coffee in _coffeeMenu)
         {
@@ -49,10 +48,8 @@ public class MenuService
         Console.ReadKey();
     }
 
-    //Shows the new order menu – used by both Barista and Supervisor
     public void ShowNewOrderMenu(Employee employee)
     {
-        // Start a new order for this employee
         _orderService.StartNewOrder(employee.Id);
 
         bool inOrderMenu = true;
@@ -60,11 +57,12 @@ public class MenuService
         while (inOrderMenu)
         {
             Console.Clear();
-            Console.WriteLine("===");
-            Console.WriteLine("COFFEE SHOP MANAGEMENT SYSTEM");
-            Console.WriteLine("====");
+            Console.WriteLine("========================================");
+            Console.WriteLine("      COFFEE SHOP MANAGEMENT SYSTEM");
+            Console.WriteLine("========================================");
             Console.WriteLine("Register New Order");
-            Console.WriteLine();
+            Console.WriteLine("----------------------------------------");
+
             Console.WriteLine("1. Add coffee to order");
             Console.WriteLine("2. View current order");
             Console.WriteLine("3. Remove item from current order");
@@ -72,7 +70,7 @@ public class MenuService
             Console.WriteLine("5. Cancel current order");
             Console.WriteLine();
             Console.WriteLine("0. Back");
-            Console.WriteLine("===");
+            Console.WriteLine("----------------------------------------");
             Console.Write("Choose an option: ");
 
             int choice = InputValidator.GetMenuChoice(0, 5);
@@ -106,13 +104,12 @@ public class MenuService
         }
     }
 
-    //Shows the coffee menu and lets the user add a coffee to the order
     private void AddCoffeeToOrder()
     {
         Console.Clear();
-        Console.WriteLine("====");
+        Console.WriteLine("========================================");
         Console.WriteLine("Add Coffee to Order");
-        Console.WriteLine("====");
+        Console.WriteLine("========================================");
 
         foreach (Coffee coffee in _coffeeMenu)
         {
@@ -120,7 +117,7 @@ public class MenuService
         }
 
         Console.WriteLine("0. Back");
-        Console.WriteLine("===");
+        Console.WriteLine("----------------------------------------");
         Console.Write("Choose coffee: ");
 
         int choice = InputValidator.GetMenuChoice(0, _coffeeMenu.Count);
@@ -138,13 +135,12 @@ public class MenuService
         Console.ReadKey();
     }
 
-    //shows all items in the current order with subtotals and total price.
     private void ViewCurrentOrder()
     {
         Console.Clear();
-        Console.WriteLine("========");
+        Console.WriteLine("========================================");
         Console.WriteLine("Current Order");
-        Console.WriteLine("=========");
+        Console.WriteLine("========================================");
 
         Order? order = _orderService.GetCurrentOrder();
 
@@ -158,19 +154,23 @@ public class MenuService
             {
                 Console.WriteLine($"{item.Coffee.Name}, {item.Quantity}   {item.Subtotal} kr");
             }
-            Console.WriteLine("---------");
+            Console.WriteLine("----------------------------------------");
             Console.WriteLine($"Total: {order.TotalPrice} kr");
         }
 
-        Console.WriteLine("----------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //Lets the user remove a coffee from the current order.
     private void RemoveItemFromOrder()
     {
         Order? order = _orderService.GetCurrentOrder();
+
+        Console.Clear();
+        Console.WriteLine("========================================");
+        Console.WriteLine("Remove Item");
+        Console.WriteLine("========================================");
 
         if (order is null || !order.Items.Any())
         {
@@ -179,10 +179,6 @@ public class MenuService
             return;
         }
 
-        Console.Clear();
-        Console.WriteLine("Remove Item");
-        Console.WriteLine();
-
         foreach (OrderItem item in order.Items)
         {
             Console.WriteLine($"{item.Coffee.Id}.{item.Coffee.Name} x{item.Quantity}");
@@ -190,7 +186,7 @@ public class MenuService
 
         Console.WriteLine();
         Console.WriteLine("0. Back");
-        Console.WriteLine("-------");
+        Console.WriteLine("----------------------------------------");
         Console.Write("Enter coffee number to remove: ");
 
         int choice = InputValidator.GetMenuChoice(0, _coffeeMenu.Count);
@@ -202,7 +198,6 @@ public class MenuService
         Console.ReadKey();
     }
 
-    //Shows order summary and lets the user select a payment method.
     private bool CompleteAndPayOrder()
     {
         Order? order = _orderService.GetCurrentOrder();
@@ -215,9 +210,9 @@ public class MenuService
         }
 
         Console.Clear();
-        Console.WriteLine("===");
+        Console.WriteLine("========================================");
         Console.WriteLine("Complete Order");
-        Console.WriteLine("====");
+        Console.WriteLine("========================================");
         Console.WriteLine();
 
         foreach (OrderItem item in order.Items)
@@ -234,13 +229,12 @@ public class MenuService
         Console.WriteLine("3. Vipps");
         Console.WriteLine();
         Console.WriteLine("0. Back");
-        Console.WriteLine("---------");
+        Console.WriteLine("----------------------------------------");
         Console.Write("Choose: ");
 
         int choice = InputValidator.GetMenuChoice(0, 3);
         if (choice == 0) return false;
 
-        //Select the correct payment processor based on user choice.
         IPaymentProcessor processor = choice switch
         {
             1 => new CashPaymentProcessor(),
@@ -266,7 +260,6 @@ public class MenuService
         return success;
     }
 
-    //Shows order history menu(Supervisor menu option).
     public void ShowOrderHistoryMenu(Employee employee)
     {
         bool inMenu = true;
@@ -274,17 +267,18 @@ public class MenuService
         while (inMenu)
         {
             Console.Clear();
-            Console.WriteLine("==========");
-            Console.WriteLine("COFFEE SHOP MANAGEMENT SYSTEM");
-            Console.WriteLine("===========");
+            Console.WriteLine("========================================");
+            Console.WriteLine("      COFFEE SHOP MANAGEMENT SYSTEM");
+            Console.WriteLine("========================================");
             Console.WriteLine("Order History:");
-            Console.WriteLine();
+            Console.WriteLine("----------------------------------------");
+
             Console.WriteLine("1. View all orders");
             Console.WriteLine("2. Search by order ID");
             Console.WriteLine("3. Filter by date");
             Console.WriteLine();
             Console.WriteLine("0. Back");
-            Console.WriteLine("-------");
+            Console.WriteLine("----------------------------------------");
             Console.Write("Choose an option: ");
 
             int choice = InputValidator.GetMenuChoice(0, 3);
@@ -307,13 +301,12 @@ public class MenuService
         }
     }
 
-    //Shows all saved orders.
     private void ViewAllOrders()
     {
         Console.Clear();
-        Console.WriteLine("==========");
+        Console.WriteLine("========================================");
         Console.WriteLine("All Orders");
-        Console.WriteLine("==========");
+        Console.WriteLine("========================================");
 
         List<Order> orders = _orderService.GetAllOrders();
 
@@ -329,18 +322,17 @@ public class MenuService
             }
         }
 
-        Console.WriteLine("-------------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //Lets the user search for a specific order by ID.
     private void SearchByOrderId()
     {
         Console.Clear();
-        Console.WriteLine("======");
+        Console.WriteLine("========================================");
         Console.WriteLine("Search by Order ID");
-        Console.WriteLine("======");
+        Console.WriteLine("========================================");
         Console.Write("Enter order ID (0 to cancel): ");
 
         string input = Console.ReadLine()?.Trim() ?? string.Empty;
@@ -367,7 +359,7 @@ public class MenuService
                 Console.WriteLine($"{item.Coffee.Name} x{item.Quantity}   {item.Subtotal} kr");
             }
 
-            Console.WriteLine("-------");
+            Console.WriteLine("----------------------------------------");
             Console.WriteLine($"Total: {order.TotalPrice} kr");
         }
 
@@ -376,13 +368,12 @@ public class MenuService
         Console.ReadKey();
     }
 
-    //lets the user filter orders by a specific date.
     private void FilterByDate()
     {
         Console.Clear();
-        Console.WriteLine("================");
+        Console.WriteLine("========================================");
         Console.WriteLine("Filter by Date");
-        Console.WriteLine("================");
+        Console.WriteLine("========================================");
         Console.Write("Enter date (dd.mm.yyyy): ");
 
         DateTime date = InputValidator.GetDate();
@@ -402,12 +393,11 @@ public class MenuService
             }
         }
 
-        Console.WriteLine("---------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //shows sales overview menu(Supervisor menuoption).
     public void ShowSalesOverviewMenu(Employee employee)
     {
         bool inMenu = true;
@@ -415,17 +405,19 @@ public class MenuService
         while (inMenu)
         {
             Console.Clear();
-            Console.WriteLine("========");
-            Console.WriteLine("COFFEE SHOP MANAGEMENT SYSTEM");
-            Console.WriteLine("========");
+            Console.WriteLine("========================================");
+            Console.WriteLine("      COFFEE SHOP MANAGEMENT SYSTEM");
+            Console.WriteLine("========================================");
             Console.WriteLine("Sales Overview:");
-            Console.WriteLine();
+            Console.WriteLine("----------------------------------------");
+
             Console.WriteLine("1. View today's sales");
             Console.WriteLine("2. View sales by date");
             Console.WriteLine("3. View payment summary");
             Console.WriteLine("4. View best selling products");
+            Console.WriteLine();
             Console.WriteLine("0. Back");
-            Console.WriteLine("---------");
+            Console.WriteLine("----------------------------------------");
             Console.Write("Choose an option: ");
 
             int choice = InputValidator.GetMenuChoice(0, 4);
@@ -451,14 +443,12 @@ public class MenuService
         }
     }
 
-    //shows total revenue and order count for today.
     private void ViewTodaysSales()
     {
         Console.Clear();
-        Console.WriteLine("=========");
+        Console.WriteLine("========================================");
         Console.WriteLine("Today's Sales");
-        Console.WriteLine("=========");
-        Console.WriteLine();
+        Console.WriteLine("========================================");
 
         var (revenue, count) = _reportService.GetSalesByDate(DateTime.Today);
 
@@ -467,18 +457,17 @@ public class MenuService
         Console.WriteLine($"Total revenue:    {revenue} NOK");
         Console.WriteLine($"Total orders:     {count}");
 
-        Console.WriteLine("-----------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //lets the user pick a date and shows sales for that day.
     private void ViewSalesByDate()
     {
         Console.Clear();
-        Console.WriteLine("=============");
+        Console.WriteLine("========================================");
         Console.WriteLine("Sales by Date:");
-        Console.WriteLine("===========");
+        Console.WriteLine("========================================");
         Console.Write("Enter date (dd.mm.yyyy): ");
 
         DateTime date = InputValidator.GetDate();
@@ -490,46 +479,42 @@ public class MenuService
         Console.WriteLine($"Total revenue:    {revenue} NOK");
         Console.WriteLine($"Total orders:     {count}");
 
-        Console.WriteLine("---------------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //shows how much was paid with each payment method today.
     private void ViewPaymentSummary()
     {
         Console.Clear();
-        Console.WriteLine("========");
+        Console.WriteLine("========================================");
         Console.WriteLine("Payment Summary:");
-        Console.WriteLine("========");
-        Console.WriteLine();
+        Console.WriteLine("========================================");
 
         Dictionary<string, decimal> summary = _reportService.GetPaymentSummary(DateTime.Today);
         decimal total = summary.Values.Sum();
 
-        string[] methods = {"Cash", "Card", "Vipps"};
+        string[] methods = { "Cash", "Card", "Vipps" };
 
         foreach (string method in methods)
         {
             summary.TryGetValue(method, out decimal amount);
-            Console.WriteLine($"{method + ":"} {amount} NOK");
+            Console.WriteLine($"{method}: {amount} NOK");
         }
 
-        Console.WriteLine("------------------");
-        Console.WriteLine($"Total:     {total} NOK");
-        Console.WriteLine("------------------");
+        Console.WriteLine("----------------------------------------");
+        Console.WriteLine($"Total: {total} NOK");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
 
-    //Shows all products ranked by how many units were sold.
     private void ViewBestSellingProducts()
     {
         Console.Clear();
-        Console.WriteLine("===========");
+        Console.WriteLine("========================================");
         Console.WriteLine("Best Selling Products:");
-        Console.WriteLine("===========");
-        Console.WriteLine();
+        Console.WriteLine("========================================");
 
         List<(string Name, int UnitsSold)> products = _reportService.GetBestSellingProducts();
 
@@ -546,7 +531,7 @@ public class MenuService
             }
         }
 
-        Console.WriteLine("-----------");
+        Console.WriteLine("----------------------------------------");
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
