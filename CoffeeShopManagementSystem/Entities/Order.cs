@@ -41,7 +41,7 @@ public class Order
     //Creates an ID from date and time, example = Order: 20260417-122355
     private static string GenerateOrderId()
     {
-        return $"Order: {DateTime.Now:yyyyMMdd-HHmmss}";
+        return $"{DateTime.Now:yyyyMMdd-HHmmss}";
     }
 
     //Adds a coffee to the order.
