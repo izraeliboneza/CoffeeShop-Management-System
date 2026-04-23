@@ -14,8 +14,7 @@ public class EmployeeService
     {
         _employees = new Dictionary<string, Employee>
         {
-            {"B001", new Barista("B001", "Per Pettersen")},
-            {"B002", new  Barista("B002", "Kari Bremnes")},
+            {"B001", new Barista("B001", "Elsa Medel-Svensson")},
             {"S001", new Supervisor("S001", "Petrus Kowalski")},
         };
     }
