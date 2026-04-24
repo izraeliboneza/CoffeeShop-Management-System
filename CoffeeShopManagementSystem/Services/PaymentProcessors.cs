@@ -16,7 +16,7 @@ public class CashPaymentProcessor : IPaymentProcessor
     }
 }
 
-//Handles Vipps payment.
+// Handles card payment.
 public class CardPaymentProcessor : IPaymentProcessor
 {
     public string PaymentMethod => "Card";
@@ -28,7 +28,7 @@ public class CardPaymentProcessor : IPaymentProcessor
     }
 }
 
-// Handles card payment.
+//Handles Vipps payment.
 public class VippsPaymentProcessor : IPaymentProcessor
 {
     public string PaymentMethod => "Vipps";
