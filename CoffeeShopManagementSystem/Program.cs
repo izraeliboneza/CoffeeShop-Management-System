@@ -8,14 +8,15 @@ public class Program
 {
     public static void Main()
     {
-        // Create the services used by the application
+        // Create the services used by the application.
         EmployeeService employeeService = new EmployeeService();
         MenuService menuService = new MenuService();
         LoginService loginService = new LoginService(employeeService);
+        WorkSessionService workSessionService = new WorkSessionService();
 
         bool isRunning = true;
 
-        // Main loop for the application start menu
+        // Main loop for the application start menu.
         while (isRunning)
         {
             ShowStartMenu();
@@ -27,19 +28,25 @@ public class Program
                 {
                     while (true)
                     {
-                        // Try to log in an employee
+                        // Try to log in an employee.
                         Employee? loggedInEmployee = HandleLogin(loginService);
 
-                        // Return to start menu if user chose to return from login
+                        // Return to start menu if user chose to return from login.
                         if (loggedInEmployee is null)
                         {
                             break;
                         }
 
-                        // Show the correct menu based on employee role
-                        // If the user chooses "Switch user", this method ends
-                        // and the login screen is shown again
-                        RunRoleBasedMenu(loggedInEmployee, menuService);
+                        // Start time tracking for this login session.
+                        workSessionService.Start(loggedInEmployee);
+
+                        // Show the correct menu based on employee role.
+                        RunRoleBasedMenu(
+                            loggedInEmployee,
+                            menuService,
+                            employeeService,
+                            workSessionService
+                        );
                     }
 
                     break;
@@ -79,7 +86,7 @@ public class Program
 
     private static Employee? HandleLogin(LoginService loginService)
     {
-        // Keep asking for employee ID until login succeeds or user returns to the main menu
+        // Keep asking for employee ID until login succeeds or user returns to the main menu.
         while (true)
         {
             Console.Clear();
@@ -98,7 +105,7 @@ public class Program
 
             string input = Console.ReadLine()?.Trim().ToUpper() ?? string.Empty;
 
-            // Return null so the main flow goes back to the start menu
+            // Return null so the main flow goes back to the start menu.
             if (input == "0")
             {
                 return null;
@@ -144,6 +151,7 @@ public class Program
         }
 
         char prefix = input[0];
+
         if (prefix != 'B' && prefix != 'S')
         {
             return false;
@@ -153,7 +161,11 @@ public class Program
         return numericPart.All(char.IsDigit);
     }
 
-    private static void RunRoleBasedMenu(Employee employee, MenuService menuService)
+    private static void RunRoleBasedMenu(
+        Employee employee,
+        MenuService menuService,
+        EmployeeService employeeService,
+        WorkSessionService workSessionService)
     {
         bool isLoggedIn = true;
 
@@ -161,11 +173,21 @@ public class Program
         {
             if (employee is Barista)
             {
-                isLoggedIn = RunBaristaMenu(employee, menuService);
+                isLoggedIn = RunBaristaMenu(
+                    employee,
+                    menuService,
+                    employeeService,
+                    workSessionService
+                );
             }
             else if (employee is Supervisor)
             {
-                isLoggedIn = RunSupervisorMenu(employee, menuService);
+                isLoggedIn = RunSupervisorMenu(
+                    employee,
+                    menuService,
+                    employeeService,
+                    workSessionService
+                );
             }
             else
             {
@@ -174,7 +196,11 @@ public class Program
         }
     }
 
-    private static bool RunBaristaMenu(Employee employee, MenuService menuService)
+    private static bool RunBaristaMenu(
+        Employee employee,
+        MenuService menuService,
+        EmployeeService employeeService,
+        WorkSessionService workSessionService)
     {
         Console.Clear();
         ShowHeader(employee);
@@ -200,6 +226,8 @@ public class Program
                 return true;
 
             case 3:
+                // Save work session before switching user.
+                workSessionService.End(employeeService.GetHourlyWage(employee.Id));
                 return false;
 
             case 0:
@@ -210,6 +238,8 @@ public class Program
 
                 if (input == "y")
                 {
+                    // Save work session before closing the program.
+                    workSessionService.End(employeeService.GetHourlyWage(employee.Id));
                     Environment.Exit(0);
                 }
 
@@ -221,22 +251,29 @@ public class Program
         }
     }
 
-    private static bool RunSupervisorMenu(Employee employee, MenuService menuService)
+    private static bool RunSupervisorMenu(
+        Employee employee,
+        MenuService menuService,
+        EmployeeService employeeService,
+        WorkSessionService workSessionService)
     {
         Console.Clear();
         ShowHeader(employee);
 
         Console.WriteLine("1. New order");
-        Console.WriteLine("2. Order history");
-        Console.WriteLine("3. Sales overview");
-        Console.WriteLine("4. Coffee menu");
-        Console.WriteLine("5. Switch user");
+        Console.WriteLine("2. Coffee menu");
+        Console.WriteLine("3. Switch user");
+        Console.WriteLine("--------------------");
+        Console.WriteLine("4. Order history");
+        Console.WriteLine("5. Sales overview");
+        Console.WriteLine("6. Time & Wage Overview");
+        Console.WriteLine("--------------------");
         Console.WriteLine();
         Console.WriteLine("0. Exit");
         Console.WriteLine("----------------------------------------");
         Console.Write("Choose an option: ");
 
-        int choice = InputValidator.GetMenuChoice(0, 5);
+        int choice = InputValidator.GetMenuChoice(0, 6);
 
         switch (choice)
         {
@@ -245,19 +282,25 @@ public class Program
                 return true;
 
             case 2:
-                menuService.ShowOrderHistoryMenu(employee);
-                return true;
-
-            case 3:
-                menuService.ShowSalesOverviewMenu(employee);
-                return true;
-
-            case 4:
                 menuService.ShowCoffeeMenu(employee);
                 return true;
 
-            case 5:
+            case 3:
+                // Save work session before switching user.
+                workSessionService.End(employeeService.GetHourlyWage(employee.Id));
                 return false;
+
+            case 4:
+                menuService.ShowOrderHistoryMenu(employee);
+                return true;
+
+            case 5:
+                menuService.ShowSalesOverviewMenu(employee);
+                return true;
+
+            case 6:
+                menuService.ShowTimeAndWageOverview(employee);
+                return true;
 
             case 0:
             {
@@ -267,6 +310,8 @@ public class Program
 
                 if (input == "y")
                 {
+                    // Save work session before closing the program.
+                    workSessionService.End(employeeService.GetHourlyWage(employee.Id));
                     Environment.Exit(0);
                 }
 

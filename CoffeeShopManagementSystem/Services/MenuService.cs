@@ -803,4 +803,58 @@ public class MenuService
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
+    
+    public void ShowTimeAndWageOverview(Employee employee)
+    {
+        Console.Clear();
+        Console.WriteLine("========================================");
+        Console.WriteLine("TIME & WAGE OVERVIEW");
+        Console.WriteLine("========================================");
+        Console.WriteLine();
+
+        WorkSessionService service = new WorkSessionService();
+        List<WorkSession> sessions = service.GetAll();
+
+        if (!sessions.Any())
+        {
+            Console.WriteLine("No work sessions found.");
+            Console.WriteLine();
+        }
+        else
+        {
+            foreach (var group in sessions.GroupBy(x => x.EmployeeId))
+            {
+                int minutes = group.Sum(x => x.Minutes);
+                decimal hourlyWage = group.First().HourlyWage;
+                decimal hours = minutes / 60m;
+                decimal salary = hours * hourlyWage;
+
+                Console.WriteLine($"Name: {group.First().EmployeeName} | Employee ID: {group.Key}");
+                Console.WriteLine($"Hours: {hours:0.0}");
+                Console.WriteLine($"Hourly rate: {hourlyWage} NOK");
+                Console.WriteLine();
+                Console.WriteLine($"Salary: {salary:0.00} NOK");
+                Console.WriteLine("----------------------------------------");
+                
+                
+            }
+        }
+        
+        decimal totalSalary = sessions
+            .GroupBy(x => x.EmployeeId)
+            .Sum(g =>
+            {
+                int mins = g.Sum(x => x.Minutes);
+                decimal wage = g.First().HourlyWage;
+                return (mins / 60m) * wage;
+            });
+
+        Console.WriteLine();
+        Console.WriteLine("========================================");
+        Console.WriteLine($"TOTAL PAYOUT: {totalSalary:0.00} NOK");
+        Console.WriteLine("========================================");
+        Console.WriteLine();
+        Console.WriteLine("Press any key to go back...");
+        Console.ReadKey();
+    }
 }
