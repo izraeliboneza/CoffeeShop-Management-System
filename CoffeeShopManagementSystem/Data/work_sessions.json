@@ -54,5 +54,13 @@
     "LogoutTime": "2026-04-27T04:11:05.2160117+02:00",
     "Minutes": 7,
     "HourlyWage": 419
+  },
+  {
+    "EmployeeId": "B004",
+    "EmployeeName": "Frank-Marius Kaffeberg",
+    "LoginTime": "2026-04-27T10:30:43.851521+02:00",
+    "LogoutTime": "2026-04-27T10:32:59.557233+02:00",
+    "Minutes": 2,
+    "HourlyWage": 225
   }
 ]
