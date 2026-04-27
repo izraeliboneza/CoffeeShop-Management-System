@@ -1,16 +1,14 @@
 using CoffeeShopManagementSystem.Entities;
+
 namespace CoffeeShopManagementSystem.Services;
 
-//This class store all the employees in the system.
-//This would usually come from a databse in a real system.
+// Stores all employees and their hourly wages
 public class EmployeeService
 {
-    //A dictionary that lets you look up employee directly by ID.
-    // Key is the employee ID, value is the employee object.
-    private Dictionary<string, Employee> _employees;
-    
-    //List of Employees(hardcoded).
-    public  EmployeeService()
+    private readonly Dictionary<string, Employee> _employees;
+    private readonly Dictionary<string, decimal> _hourlyWages;
+
+    public EmployeeService()
     {
         _employees = new Dictionary<string, Employee>
         {
@@ -20,13 +18,25 @@ public class EmployeeService
             {"B004", new Barista("B004", "Frank-Marius Kaffeberg")},
             {"S001", new Supervisor("S001", "Petrus Kowalski")},
         };
+
+        _hourlyWages = new Dictionary<string, decimal>
+        {
+            {"B001", 225m},
+            {"B002", 225m},
+            {"B003", 225m},
+            {"B004", 225m},
+            {"S001", 419m},
+        };
     }
-    
-    //Returns the employee with the given ID and null if not found.
+
     public Employee? GetEmployee(string employeeId)
     {
         _employees.TryGetValue(employeeId, out Employee? employee);
         return employee;
     }
-    
+
+    public decimal GetHourlyWage(string employeeId)
+    {
+        return _hourlyWages.TryGetValue(employeeId, out decimal wage) ? wage : 0m;
+    }
 }
