@@ -54,6 +54,11 @@ public class OrderService
             return false;
         }
 
+        if (quantity <= 0)
+        {
+            return false;
+        }
+
         return _currentOrder.ReduceItemQuantity(coffeeId, quantity);
     }
 

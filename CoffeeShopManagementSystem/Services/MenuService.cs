@@ -274,8 +274,24 @@ public class MenuService
                 break;
 
             case '-':
+            {
+                int currentQuantity = selectedItem.Quantity;
+
                 success = _orderService.ReduceFromOrder(selectedItem.Coffee.Id, amount);
+
+                if (!success)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error");
+                    Console.ResetColor();
+                    Console.WriteLine($" - You only have {currentQuantity} item(s).");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    return;
+                }
+
                 break;
+            }
 
             default:
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -287,21 +303,10 @@ public class MenuService
                 return;
         }
 
-        if (success)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Success");
-            Console.ResetColor();
-            Console.WriteLine(" - Quantity updated.");
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Error");
-            Console.ResetColor();
-            Console.WriteLine(" - Item could not be updated.");
-        }
-
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Success");
+        Console.ResetColor();
+        Console.WriteLine(" - Quantity updated.");
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
@@ -434,42 +439,37 @@ public class MenuService
             {
                 Console.WriteLine();
 
-                // Simulate reading the card
                 Console.Write("Reading card");
                 for (int i = 0; i < 3; i++)
                 {
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-                Console.WriteLine();
 
+                Console.WriteLine();
                 Thread.Sleep(300);
 
-                // Simulate waiting for PIN on an external terminal
                 Console.Write("Waiting for PIN");
                 for (int i = 0; i < 2; i++)
                 {
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
+
                 Console.WriteLine();
-
                 Thread.Sleep(300);
 
-                // Simulate PIN entered on the terminal
                 Console.WriteLine("PIN entered..");
-
                 Thread.Sleep(300);
 
-                // Simulate connecting to the card provider
                 Console.Write("Connecting to card provider");
                 for (int i = 0; i < 3; i++)
                 {
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-                Console.WriteLine();
 
+                Console.WriteLine();
                 Thread.Sleep(300);
 
                 IPaymentProcessor processor = new CardPaymentProcessor();
@@ -490,13 +490,13 @@ public class MenuService
             {
                 Console.WriteLine();
 
-                // Simulate waiting for Vipps confirmation
                 Console.Write("Waiting for payment confirmation");
                 for (int i = 0; i < 3; i++)
                 {
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
+
                 Console.WriteLine();
 
                 Thread.Sleep(300);
@@ -803,7 +803,7 @@ public class MenuService
         Console.WriteLine("Press any key to go back...");
         Console.ReadKey();
     }
-    
+
     public void ShowTimeAndWageOverview(Employee employee)
     {
         Console.Clear();
@@ -835,11 +835,9 @@ public class MenuService
                 Console.WriteLine();
                 Console.WriteLine($"Salary: {salary:0.00} NOK");
                 Console.WriteLine("----------------------------------------");
-                
-                
             }
         }
-        
+
         decimal totalSalary = sessions
             .GroupBy(x => x.EmployeeId)
             .Sum(g =>
