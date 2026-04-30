@@ -12,7 +12,6 @@ public class MenuService
     private readonly OrderService _orderService;
     private readonly ReportService _reportService;
 
-    // Coffee menu with all available products and prices.
     private readonly List<Coffee> _coffeeMenu = new()
     {
         new Coffee(1, "Espresso",                   38m),
@@ -101,19 +100,6 @@ public class MenuService
                     break;
 
                 case 6:
-                    _orderService.CancelOrder();
-
-                    Console.Clear();
-                    Console.WriteLine("========================================");
-                    Console.WriteLine("Order Canceled");
-                    Console.WriteLine("========================================");
-                    Console.WriteLine();
-                    Console.WriteLine("The current order has been canceled.");
-                    Thread.Sleep(2000);
-
-                    inOrderMenu = false;
-                    break;
-
                 case 0:
                     _orderService.CancelOrder();
 
@@ -274,24 +260,8 @@ public class MenuService
                 break;
 
             case '-':
-            {
-                int currentQuantity = selectedItem.Quantity;
-
                 success = _orderService.ReduceFromOrder(selectedItem.Coffee.Id, amount);
-
-                if (!success)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("Error");
-                    Console.ResetColor();
-                    Console.WriteLine($" - You only have {currentQuantity} item(s).");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
-                    return;
-                }
-
                 break;
-            }
 
             default:
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -303,10 +273,21 @@ public class MenuService
                 return;
         }
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write("Success");
-        Console.ResetColor();
-        Console.WriteLine(" - Quantity updated.");
+        if (success)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Success");
+            Console.ResetColor();
+            Console.WriteLine(" - Quantity updated.");
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Error");
+            Console.ResetColor();
+            Console.WriteLine(" - Item could not be updated.");
+        }
+
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
@@ -418,9 +399,11 @@ public class MenuService
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("Success");
                     Console.ResetColor();
-                    Console.WriteLine(" - Payment via Cash accepted.");
+                    Console.WriteLine(" - Payment accepted and order saved.");
                     Console.WriteLine($"Change to customer: {change} kr");
-                    Console.WriteLine("Order saved.");
+                    Console.WriteLine();
+
+                    AskPrintReceipt(order);
                 }
                 else
                 {
@@ -445,8 +428,8 @@ public class MenuService
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-
                 Console.WriteLine();
+
                 Thread.Sleep(300);
 
                 Console.Write("Waiting for PIN");
@@ -455,11 +438,11 @@ public class MenuService
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-
                 Console.WriteLine();
-                Thread.Sleep(300);
 
+                Thread.Sleep(300);
                 Console.WriteLine("PIN entered..");
+
                 Thread.Sleep(300);
 
                 Console.Write("Connecting to card provider");
@@ -468,22 +451,34 @@ public class MenuService
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-
                 Console.WriteLine();
+
                 Thread.Sleep(300);
 
                 IPaymentProcessor processor = new CardPaymentProcessor();
-                _orderService.CompleteOrder(processor);
+                bool success = _orderService.CompleteOrder(processor);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Success");
-                Console.ResetColor();
-                Console.WriteLine(" - Payment with card accepted.");
-                Console.WriteLine("Order saved.");
+                if (success)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Success");
+                    Console.ResetColor();
+                    Console.WriteLine(" - Payment accepted and order saved.");
+                    Console.WriteLine();
+
+                    AskPrintReceipt(order);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error");
+                    Console.ResetColor();
+                    Console.WriteLine(" - Card payment failed.");
+                }
 
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
-                return true;
+                return success;
             }
 
             case 3:
@@ -496,29 +491,77 @@ public class MenuService
                     Thread.Sleep(300);
                     Console.Write(".");
                 }
-
                 Console.WriteLine();
 
                 Thread.Sleep(300);
                 Console.WriteLine("Payment registered.");
 
                 IPaymentProcessor processor = new VippsPaymentProcessor();
-                _orderService.CompleteOrder(processor);
+                bool success = _orderService.CompleteOrder(processor);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Success");
-                Console.ResetColor();
-                Console.WriteLine(" - Payment via Vipps accepted.");
-                Console.WriteLine("Order saved.");
+                if (success)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Success");
+                    Console.ResetColor();
+                    Console.WriteLine(" - Payment accepted and order saved.");
+                    Console.WriteLine();
+
+                    AskPrintReceipt(order);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error");
+                    Console.ResetColor();
+                    Console.WriteLine(" - Vipps payment failed.");
+                }
 
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
-                return true;
+                return success;
             }
 
             default:
                 return false;
         }
+    }
+
+    private void AskPrintReceipt(Order order)
+    {
+        Console.Write("Print receipt? (y/n): ");
+        string choice = Console.ReadLine() ?? "";
+
+        if (choice.ToLower() != "y")
+        {
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine("========================================");
+        Console.WriteLine("Receipt");
+        Console.WriteLine("========================================");
+        Console.WriteLine();
+
+        Console.WriteLine($"Order ID: {order.OrderId}");
+        Console.WriteLine($"Employee ID: {order.EmployeeId}");
+        Console.WriteLine($"Date: {order.Timestamp:dd.MM.yyyy} - Time: {order.Timestamp:HH:mm}");
+        Console.WriteLine($"Payment method: {order.PaymentMethod}");
+        Console.WriteLine();
+
+        Console.WriteLine("Items:");
+        Console.WriteLine("----------------------------------------");
+
+        foreach (OrderItem item in order.Items)
+        {
+            Console.WriteLine($"{item.Quantity} x {item.Coffee.Name} - {item.Subtotal} kr");
+        }
+
+        Console.WriteLine("----------------------------------------");
+        Console.WriteLine($"Total: {order.TotalPrice} kr");
+        Console.WriteLine("========================================");
+        Console.WriteLine();
     }
 
     public void ShowOrderHistoryMenu(Employee employee)
