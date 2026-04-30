@@ -1,9 +1,6 @@
 using CoffeeShopManagementSystem.Services;
 using CoffeeShopManagementSystem.Entities;
-using CoffeeShopManagementSystem.Interfaces;
-using Xunit;
-using System;
-using System.Collections.Generic;
+
 
 namespace CoffeeShopManagementSystem.Tests
 {
