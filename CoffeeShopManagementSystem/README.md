@@ -28,7 +28,8 @@ CoffeeShopManagementSystem/
 │   ├── Employee.cs
 │   ├── Order.cs
 │   ├── OrderItem.cs
-│   └── Supervisor.cs
+│   ├── Supervisor.cs
+│   └── WorkSession.cs
 │
 ├── Interfaces/
 │   ├── IFileService.cs
@@ -41,7 +42,8 @@ CoffeeShopManagementSystem/
 │   ├── MenuService.cs
 │   ├── OrderService.cs
 │   ├── PaymentProcessors.cs
-│   └── ReportService.cs
+│   ├── ReportService.cs
+│   └── WorkSessionService.cs
 │
 ├── Utils/
 │   └── InputValidator.cs
