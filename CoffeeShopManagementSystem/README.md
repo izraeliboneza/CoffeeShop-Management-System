@@ -172,7 +172,7 @@ The project demonstrates:
 ### Kjell-Ivar Pettersen
 **Team Lead / Project Manager / Technical Lead / Developer**
 
-Kjell-Ivar was responsible for leading the project both organizationally and technically, ensuring structured progress, clear communication, and high code quality throughout development.
+Responsible for leading the project both organizationally and technically, ensuring structured progress, clear communication, and high code quality throughout development.
 
 ---
 
