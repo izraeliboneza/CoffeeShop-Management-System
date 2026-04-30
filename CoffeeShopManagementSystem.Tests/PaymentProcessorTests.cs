@@ -1,6 +1,6 @@
 using CoffeeShopManagementSystem.Services;
 using Xunit;
-using System;
+
 
 namespace CoffeeShopManagementSystem.Tests;
 
@@ -11,7 +11,7 @@ public class PaymentProcessorTests
 {
     //TEST 1: Cash payment should calculate correct change.
     [Fact]
-    public void CashPaymentProcessor_WitMoreCashThanNeeded_ReturnsCorrectChange()
+    public void CashPaymentProcessor_WithMoreCashThanNeeded_ReturnsCorrectChange()
     {
         //Arrange - create cash processor and payment details.
         var processor = new CashPaymentProcessor();

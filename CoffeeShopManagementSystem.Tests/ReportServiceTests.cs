@@ -7,22 +7,6 @@ using System.Collections.Generic;
 
 namespace CoffeeShopManagementSystem.Tests
 {
-    //Fake file service for testing - stores orders in memory instead of files.
-    public class FakeFileService : IFileService
-    {
-        private List<Order> _orders = new List<Order>();
-
-        public void Save(Order order)
-        {
-            _orders.Add(order);
-        }
-
-        public List<Order> LoadOrders()
-        {
-            return _orders;
-        }
-    }
-
 
     //Tests for the ReportService class.
     //The class generates sales reports and statistics.
@@ -95,7 +79,7 @@ namespace CoffeeShopManagementSystem.Tests
 
             //Assert - should only get the completed order.
             Assert.Equal(108, result.Revenue); // Only the completed order
-            Assert.Equal(1, result.OrderCount); // Only 1 completed order}
+            Assert.Equal(1, result.OrderCount); // Only 1 completed order
         }
         
         
