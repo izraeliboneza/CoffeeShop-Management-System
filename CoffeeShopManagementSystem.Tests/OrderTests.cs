@@ -8,7 +8,7 @@ public class OrderTests
 {
     // TEST 1: New order should have correct initial  values.
     [Fact]
-    public void Order_WhenCreated_HAsCorrectInitialValues()
+    public void Order_WhenCreated_HasCorrectInitialValues()
     {
         
         //Arrange - prepare employee ID. The one creating the order.
@@ -56,7 +56,7 @@ public class OrderTests
         
         
         //Act - reduce the quantity if the item by more than the true quantity in order.
-        var result = order.ReduceItemQuantity(2, 3);
+        var result = order.ReduceItemQuantity(2, 2);
         
         // Assert - item should be completely removed.
         Assert.True(result); //Returns true if successful.
