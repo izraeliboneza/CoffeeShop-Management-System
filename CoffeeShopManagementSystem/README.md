@@ -63,6 +63,23 @@ This structure provides separation of concerns and improves maintainability.
 
 ---
 
+## Sample Data
+
+The JSON files included in the `Data/` folder contain pre-generated sample data for testing and demonstration purposes.
+This allows the system to be tested immediately without requiring manual input.
+
+The data simulates:
+- Completed orders
+- Multiple employees
+- Various payment methods
+- Work sessions and time tracking
+
+The system will continue to append new data during runtime.
+
+No additional setup is required to start testing the system.
+
+---
+
 ## How to Run
 
 1. Open the project in Rider or Visual Studio
