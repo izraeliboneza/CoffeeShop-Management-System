@@ -1,0 +1,27 @@
+[
+  {
+    "EmployeeId": "B001",
+    "EmployeeName": "Elsa Medel-Svensson",
+    "LoginTime": "2026-05-01T08:00:00+02:00",
+    "LogoutTime": "2026-05-02T11:00:00+02:00",
+    "Minutes": 1620,
+    "HourlyWage": 225
+  },
+  {
+    "EmployeeId": "B003",
+    "EmployeeName": "Kari B\u00F8nnesen",
+    "LoginTime": "2026-05-01T07:00:00+02:00",
+    "LogoutTime": "2026-05-02T22:00:00+02:00",
+    "Minutes": 2340,
+    "HourlyWage": 225
+  },
+  {
+    "EmployeeId": "S001",
+    "EmployeeName": "Petrus Kowalski",
+    "LoginTime": "2026-05-01T09:00:00+02:00",
+    "LogoutTime": "2026-05-02T18:00:00+02:00",
+    "Minutes": 1980,
+    "HourlyWage": 419
+  }
+
+]
