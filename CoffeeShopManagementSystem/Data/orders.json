@@ -1,0 +1,281 @@
+[
+  {
+    "OrderId": "20260501-033835",
+    "EmployeeId": "B001",
+    "Timestamp": "2026-05-01T03:38:35.1364164+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 6,
+          "Name": "Traktekaffe / Svart kaffe",
+          "Price": 42
+        },
+        "Quantity": 2,
+        "Subtotal": 84
+      },
+      {
+        "Coffee": {
+          "Id": 1,
+          "Name": "Espresso",
+          "Price": 38
+        },
+        "Quantity": 2,
+        "Subtotal": 76
+      }
+    ],
+    "PaymentMethod": "Cash",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-033923",
+    "EmployeeId": "B003",
+    "Timestamp": "2026-05-01T03:39:23.9203976+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 2,
+          "Name": "Americano",
+          "Price": 47
+        },
+        "Quantity": 4,
+        "Subtotal": 188
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034003",
+    "EmployeeId": "S001",
+    "Timestamp": "2026-05-01T03:40:03.1645753+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 2,
+          "Name": "Americano",
+          "Price": 47
+        },
+        "Quantity": 5,
+        "Subtotal": 235
+      },
+      {
+        "Coffee": {
+          "Id": 6,
+          "Name": "Traktekaffe / Svart kaffe",
+          "Price": 42
+        },
+        "Quantity": 1,
+        "Subtotal": 42
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034120",
+    "EmployeeId": "B001",
+    "Timestamp": "2026-05-01T03:41:20.5123456+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 3,
+          "Name": "Latte",
+          "Price": 52
+        },
+        "Quantity": 1,
+        "Subtotal": 52
+      }
+    ],
+    "PaymentMethod": "Card",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034215",
+    "EmployeeId": "B003",
+    "Timestamp": "2026-05-01T03:42:15.8342211+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 4,
+          "Name": "Cappuccino",
+          "Price": 49
+        },
+        "Quantity": 2,
+        "Subtotal": 98
+      }
+    ],
+    "PaymentMethod": "Cash",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034305",
+    "EmployeeId": "S001",
+    "Timestamp": "2026-05-01T03:43:05.1122334+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 1,
+          "Name": "Espresso",
+          "Price": 38
+        },
+        "Quantity": 3,
+        "Subtotal": 114
+      }
+    ],
+    "PaymentMethod": "Card",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034410",
+    "EmployeeId": "B001",
+    "Timestamp": "2026-05-01T03:44:10.9988776+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 2,
+          "Name": "Americano",
+          "Price": 47
+        },
+        "Quantity": 2,
+        "Subtotal": 94
+      },
+      {
+        "Coffee": {
+          "Id": 3,
+          "Name": "Latte",
+          "Price": 52
+        },
+        "Quantity": 1,
+        "Subtotal": 52
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034522",
+    "EmployeeId": "B003",
+    "Timestamp": "2026-05-01T03:45:22.5566778+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 6,
+          "Name": "Traktekaffe / Svart kaffe",
+          "Price": 42
+        },
+        "Quantity": 3,
+        "Subtotal": 126
+      }
+    ],
+    "PaymentMethod": "Cash",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034645",
+    "EmployeeId": "S001",
+    "Timestamp": "2026-05-01T03:46:45.7788991+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 4,
+          "Name": "Cappuccino",
+          "Price": 49
+        },
+        "Quantity": 1,
+        "Subtotal": 49
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034758",
+    "EmployeeId": "B001",
+    "Timestamp": "2026-05-01T03:47:58.3344556+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 3,
+          "Name": "Latte",
+          "Price": 52
+        },
+        "Quantity": 2,
+        "Subtotal": 104
+      }
+    ],
+    "PaymentMethod": "Card",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-034910",
+    "EmployeeId": "B003",
+    "Timestamp": "2026-05-01T03:49:10.6677889+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 1,
+          "Name": "Espresso",
+          "Price": 38
+        },
+        "Quantity": 2,
+        "Subtotal": 76
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-035025",
+    "EmployeeId": "S001",
+    "Timestamp": "2026-05-01T03:50:25.1122446+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 2,
+          "Name": "Americano",
+          "Price": 47
+        },
+        "Quantity": 3,
+        "Subtotal": 141
+      }
+    ],
+    "PaymentMethod": "Cash",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-035140",
+    "EmployeeId": "B001",
+    "Timestamp": "2026-05-01T03:51:40.9988112+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 6,
+          "Name": "Traktekaffe / Svart kaffe",
+          "Price": 42
+        },
+        "Quantity": 2,
+        "Subtotal": 84
+      }
+    ],
+    "PaymentMethod": "Card",
+    "IsCompleted": true
+  },
+  {
+    "OrderId": "20260501-035255",
+    "EmployeeId": "B003",
+    "Timestamp": "2026-05-01T03:52:55.4455667+02:00",
+    "Items": [
+      {
+        "Coffee": {
+          "Id": 4,
+          "Name": "Cappuccino",
+          "Price": 49
+        },
+        "Quantity": 2,
+        "Subtotal": 98
+      }
+    ],
+    "PaymentMethod": "Vipps",
+    "IsCompleted": true
+  }
+]
