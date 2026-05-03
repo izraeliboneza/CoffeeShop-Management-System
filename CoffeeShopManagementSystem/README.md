@@ -2,6 +2,14 @@
 
 ---
 
+## Repository
+
+The project repository is available here:  
+
+https://github.com/izraeliboneza/CoffeeShop-Management-System
+
+---
+
 ## Project Overview
 
 This project is a **console-based CoffeeShop Management System.**
